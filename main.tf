@@ -10,3 +10,9 @@ module "ecr" {
 
   project_name = var.project_name
 }
+
+module "circleci" {
+  source = "./circleci"
+
+  cci_context_name = var.project_name
+}
