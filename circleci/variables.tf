@@ -9,3 +9,7 @@ variable "cci_context_name" {
 variable "backend_ecr_url" {
   description = "AWS ECR url for backend"
 }
+
+variable "aws_access_keys_circleci" {
+  description = "Access key ID for CircleCI"
+}
