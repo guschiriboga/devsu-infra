@@ -18,6 +18,7 @@ resource "aws_iam_policy" "cci_user_policy" {
 # CircleCI
 resource "aws_iam_user" "aws_cci_user" {
   name = "${var.project_name}-cci"
+  force_destroy = true
 }
 
 resource "aws_iam_user_policy" "aws_user_policy_circleci" {
