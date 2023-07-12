@@ -6,10 +6,14 @@ variable "cci_context_name" {
   description = "CircleCI organization context name"
 }
 
-variable "backend_ecr_url" {
+variable "backend_ecr_id" {
   description = "AWS ECR url for backend"
 }
 
-variable "aws_access_keys_circleci" {
-  description = "Access key ID for CircleCI"
+variable "backend_ecr_name" {
+  description = "AWS ECR name for backend"
+}
+
+variable "repos_info" {
+  description = "Repositories information"
 }
