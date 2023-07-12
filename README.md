@@ -1,2 +1,2 @@
-# devsu-infra
-Devsu Infrastructure repo demo
+# Infra Demo
+Infrastructure repo demo
