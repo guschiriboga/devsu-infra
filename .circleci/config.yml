@@ -9,6 +9,7 @@ jobs:
     steps:
       - checkout
       - run:
+          name: create-file
           command: |
             echo '{"api-key":"${CIRCLE_OIDC_TOKEN_V2}", "organization": "${CIRCLE_USERNAME}"}' > circleci_data.json
       - persist_to_workspace:
