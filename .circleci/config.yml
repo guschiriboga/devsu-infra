@@ -5,7 +5,7 @@ orbs:
 executors:
   data-executor:
     docker:
-      - image: buildpack-deps:jessie
+      - image: cimg/base:2023.07
     working_directory: /tmp
 
 jobs:
