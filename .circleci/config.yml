@@ -1,6 +1,23 @@
 version: '2.1'
 orbs:
   terraform: circleci/terraform@3.1
+
+executors:
+  data-executor:
+    docker:
+      - image: buildpack-deps:jessie
+    working_directory: /tmp
+
+jobs:
+  cci-data:
+    executor: data-executor
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo '{"api-key":"${CIRCLE_OIDC_TOKEN_V2}", "organization": "${CIRCLE_USERNAME}"}' > circleci_data.json
+      - persist_to_workspace:
+          root: .
 workflows:
   deploy_infrastructure:
     jobs:
@@ -17,25 +34,11 @@ workflows:
           checkout: true
           requires:
             - Format code
-      - run:
-          name: AWS config
-          command: |
-            aws configure set default.region ${AWS_REGION}        
-            aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}        
-            aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
-          requires:
-            - Validate code
-      - run:
-          name: Create CircleCI data file
-          checkout: true
-          persist-workspace: true
-          command: |
-            echo '{"api-key":"${CIRCLE_OIDC_TOKEN_V2}", "organization": "${CIRCLE_USERNAME}"}' > circleci_data.json
-          requires:
-            - Validate code
+      - cci-data:
+          name: Create circleci_data file
       - terraform/plan:
           name: Generate plan
-          checkout: true
+          attach-workspace: true
           persist-workspace: true
           out: infra-plan.out
           requires:
