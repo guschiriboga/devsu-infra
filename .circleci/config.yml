@@ -17,13 +17,30 @@ workflows:
           checkout: true
           requires:
             - Format code
+      - run:
+          name: AWS config
+          command: |
+            aws configure set default.region ${AWS_REGION}        
+            aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}        
+            aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+          requires:
+            - Validate code
+      - run:
+          name: Create CircleCI data file
+          checkout: true
+          persist-workspace: true
+          command: |
+            echo '{"api-key":"${CIRCLE_OIDC_TOKEN_V2}", "organization": "${CIRCLE_USERNAME}"}' > circleci_data.json
+          requires:
+            - Validate code
       - terraform/plan:
           name: Generate plan
           checkout: true
           persist-workspace: true
           out: infra-plan.out
           requires:
-            - Validate code
+            - AWS config
+            - Create CircleCI data file
       - terraform/apply:
           attach-workspace: true
           plan: infra-plan.out
