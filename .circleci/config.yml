@@ -2,15 +2,10 @@ version: '2.1'
 orbs:
   terraform: circleci/terraform@3.1
 
-executors:
-  data-executor:
-    docker:
-      - image: cimg/base:2023.07
-    working_directory: /tmp
-
 jobs:
   cci-data:
-    executor: data-executor
+    docker:
+      - image: cimg/base:2023.07
     steps:
       - checkout
       - run:
