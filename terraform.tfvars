@@ -13,5 +13,5 @@ cidr_info = {
 
 repos_info = {
   backend = "java-demo"
-  infra = "infra-demo"
+  infra   = "infra-demo"
 }

@@ -17,3 +17,7 @@ variable "backend_ecr_name" {
 variable "repos_info" {
   description = "Repositories information"
 }
+
+variable "eks_cluster_name" {
+  description = "EKS cluster name"
+}
