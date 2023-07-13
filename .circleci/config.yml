@@ -11,20 +11,21 @@ workflows:
           name: Format code
           checkout: true
           requires:
-            - terraform/init
+            - Initialize terraform providers
       - terraform/validate:
           name: Validate code
           checkout: true
           requires:
-            - terraform/fmt
+            - Format code
       - terraform/plan:
+          name: Generate plan
           checkout: true
           persist-workspace: true
           out: infra-plan.out
           requires:
-            - terraform/validate
+            - Validate code
       - terraform/apply:
           attach-workspace: true
           plan: infra-plan.out
           requires:
-            - terraform/plan
+            - Generate plan
