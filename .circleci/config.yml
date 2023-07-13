@@ -14,13 +14,18 @@ jobs:
             echo '{"api-key":"${CIRCLE_OIDC_TOKEN_V2}", "organization": "${CIRCLE_USERNAME}"}' > circleci_data.json
       - persist_to_workspace:
           root: .
-          path: ./
+          paths:
+            - circleci_data.json
 workflows:
   deploy_infrastructure:
     jobs:
+      - cci-data:
+          name: Create circleci_data file
       - terraform/init:
           name: Initialize terraform providers
           checkout: true
+          requires:
+            - Create circleci_data file
       - terraform/fmt:
           name: Format code
           checkout: true
@@ -31,10 +36,6 @@ workflows:
           checkout: true
           requires:
             - Format code
-      - cci-data:
-          name: Create circleci_data file
-          requires:
-            - Validate code
       - terraform/plan:
           name: Generate plan
           attach-workspace: true
