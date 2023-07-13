@@ -42,8 +42,7 @@ workflows:
           persist-workspace: true
           out: infra-plan.out
           requires:
-            - AWS config
-            - Create CircleCI data file
+            - Create circleci_data file
       - terraform/apply:
           attach-workspace: true
           plan: infra-plan.out
