@@ -44,19 +44,25 @@ In the file `terraform.tfvars`, change the following variables:
 
 ### Deploy infrastructure
 
-Initialize terraform project
+**Initialize terraform project**
 
 `terraform init`
 
-Validate terraform code
+**Validate terraform code**
 
 `terraform validate`
 
-Deploy resources
+**Deploy resources**
 
 `terraform apply`
 
-## Other info
+**Destroy resources**
+
++ _It is recommended to delete the k8s deployment prior to destroy the infrastructure_
+
+`terraform destroy`
+
+## CI/CD configuration
 
 In the file `circleci_config.yml` you can find the automated pipeline configuration file to deploy the infrastructure with CircleCI.
 
