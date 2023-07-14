@@ -11,6 +11,7 @@ cidr_info = {
   public_subnet  = ["10.77.3.0/24", "10.77.4.0/24"]
 }
 
+# CirlceCI repositories names
 repos_info = {
   backend = "java-demo"
   infra   = "infra-demo"

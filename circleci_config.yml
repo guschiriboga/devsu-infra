@@ -42,7 +42,7 @@ workflows:
           persist-workspace: true
           out: infra-plan.out
           requires:
-            - Create circleci_data file
+            - Validate code
       - terraform/apply:
           attach-workspace: true
           plan: infra-plan.out

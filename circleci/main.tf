@@ -22,3 +22,9 @@ resource "circleci_environment_variable" "aws_eks_cluster_name" {
   name  = "AWS_EKS_CLUSTER_NAME"
   value     = var.eks_cluster_name
 }
+
+resource "circleci_environment_variable" "aws_infra_check" {
+  project = var.repos_info["backend"]
+  name  = "CHECK_INFRA"
+  value     = "up"
+}
